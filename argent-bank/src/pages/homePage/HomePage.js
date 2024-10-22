@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 
 const HomePage = () => {
     return (
@@ -13,10 +14,10 @@ const HomePage = () => {
         <h1 className="sr-only">Argent Bank</h1>
       </a>
       <div>
-        <a className="main-nav-item" href="./sign-in.html">
-          <i className="fa fa-user-circle"></i>
+        <Link  to='/login' className="main-nav-item" >
+        <i className="fa fa-user-circle"></i>
           Sign In
-        </a>
+        </Link>
       </div>
     </nav>
     <main>
