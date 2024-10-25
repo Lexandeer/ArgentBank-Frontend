@@ -6,7 +6,11 @@ const HomePage = () => {
     <div>
       <nav className="main-nav">
         <a className="main-nav-logo" href="./index.html">
-          <img className="main-nav-logo-image" src="" alt="Argent Bank Logo" />
+          <img
+            className="main-nav-logo-image"
+            src=".\img\argentBankLogo.jpeg"
+            alt="Argent Bank Logo"
+          />
           <h1 className="sr-only">Argent Bank</h1>
         </a>
         <div>
@@ -31,7 +35,11 @@ const HomePage = () => {
         <section className="features">
           <h2 className="sr-only">Features</h2>
           <div className="feature-item">
-            <img src="" alt="Chat Icon" className="feature-icon" />
+            <img
+              src=".\img\icon-chat.jpeg"
+              alt="Chat Icon"
+              className="feature-icon"
+            />
             <h3 className="feature-item-title">You are our #1 priority</h3>
             <p>
               Need to talk to a representative? You can get in touch through our
@@ -39,7 +47,11 @@ const HomePage = () => {
             </p>
           </div>
           <div className="feature-item">
-            <img src="" alt="Chat Icon" className="feature-icon" />
+            <img
+              src=".\img\icon-money.jpeg"
+              alt="Money Icon"
+              className="feature-icon"
+            />
             <h3 className="feature-item-title">
               More savings means higher rates
             </h3>
@@ -48,7 +60,11 @@ const HomePage = () => {
             </p>
           </div>
           <div className="feature-item">
-            <img src="" alt="Chat Icon" className="feature-icon" />
+            <img
+              src=".\img\icon-security.jpeg"
+              alt="security Icon"
+              className="feature-icon"
+            />
             <h3 className="feature-item-title">Security you can trust</h3>
             <p>
               We use top of the line encryption to make sure your data and money

@@ -8,7 +8,7 @@ const LoginPage = () => {
         <a class="main-nav-logo" href="./index.html">
           <img
             class="main-nav-logo-image"
-            src="./img/argentBankLogo.png"
+            src="./img/argentBankLogo.jpeg"
             alt="Argent Bank Logo"
           />
           <h1 class="sr-only">Argent Bank</h1>
