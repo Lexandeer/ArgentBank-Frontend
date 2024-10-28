@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, current } from '@reduxjs/toolkit';
 
 export const connectionThunk = createAsyncThunk(
   'login/connectionThunk',
@@ -24,22 +24,29 @@ export const connectionThunk = createAsyncThunk(
 
 export const loginSlice = createSlice({
   name: 'login',
-  initialState: {},
+  initialState: {
+    status: 'idle', //idle, loading, succeeded, failed
+    error: null,
+    token: null,
+  },
   // Pour les actions Synchrones
   reducers: {
-    Disconnect: (currentState, action) => {
-      const tokenState = [...currentState, action.payload];
-      return tokenState;
+    Disconnect: (currentState) => {
+      // On remet à zéro tout les states
+      currentState.token = null; // réinitialise le token  à la déconnexion
+      currentState.status = 'idle';
+      currentState.error = null;
     },
   },
   // Pour les actions Asynchrones
   extraReducers: {
     [connectionThunk.pending]: (state) => {
       state.status = 'loading';
+      state.error = null; // On s'assure que l'erreur précèdente est remise à zéro
     },
     [connectionThunk.fulfilled]: (state, action) => {
       state.status = 'succeded';
-      state.localStorage = action.payload; // On ajoute le token
+      state.token = action.payload; // On ajoute le token
     },
     [connectionThunk.rejected]: (state, action) => {
       state.status = 'failed';
