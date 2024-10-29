@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, current } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 export const connectionThunk = createAsyncThunk(
   'login/connectionThunk',
@@ -39,18 +39,18 @@ export const loginSlice = createSlice({
     },
   },
   // Pour les actions Asynchrones
-  extraReducers: {
-    [connectionThunk.pending]: (state) => {
-      state.status = 'loading';
-      state.error = null; // On s'assure que l'erreur précèdente est remise à zéro
-    },
-    [connectionThunk.fulfilled]: (state, action) => {
-      state.status = 'succeded';
-      state.token = action.payload; // On ajoute le token
-    },
-    [connectionThunk.rejected]: (state, action) => {
-      state.status = 'failed';
-      state.error = action.error.message;
-    },
+  extraReducers: (builder) => {
+    builder
+      .addCase(connectionThunk.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(connectionThunk.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.user = action.payload;
+      })
+      .addCase(connectionThunk.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      });
   },
 });
