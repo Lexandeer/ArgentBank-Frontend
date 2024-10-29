@@ -15,11 +15,12 @@ const LoginPage = () => {
       email: userName,
       password: passWord,
     };
+    console.log(loginInput); // Supprimer après les test
     dispatch(connectionThunk(loginInput));
   };
 
   useEffect(() => {
-    if (status === 'fulfilled') {
+    if (status === 'succeeded') {
       setPassWord('');
       setUserName('');
     }
