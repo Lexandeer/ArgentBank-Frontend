@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, current } from '@reduxjs/toolkit';
 
 export const connectionThunk = createAsyncThunk(
   'login/connectionThunk',
@@ -14,7 +14,8 @@ export const connectionThunk = createAsyncThunk(
 
     if (response.ok) {
       const data = await response.json();
-      return data; // resolve()
+      // connectionThunk renvoie au reducer la réponse de l'API(le token) sous forme d'actionPayload.
+      return data; // resolve(),
     } else {
       const errorData = await response.json();
       throw new Error(errorData.message || 'erreur de connexion '); // reject()
@@ -28,6 +29,7 @@ export const loginSlice = createSlice({
     status: 'idle', //idle, loading, succeeded, failed
     error: null,
     token: null,
+    userList: [],
   },
   // Pour les actions Synchrones
   reducers: {
@@ -36,6 +38,12 @@ export const loginSlice = createSlice({
       currentState.token = null; // réinitialise le token  à la déconnexion
       currentState.status = 'idle';
       currentState.error = null;
+    },
+    setUserList: (currentState, action) => {
+      currentState.userList = action.payload;
+    },
+    setError: (currentState, action) => {
+      currentState.error = action.payload;
     },
   },
   // Pour les actions Asynchrones
@@ -46,7 +54,7 @@ export const loginSlice = createSlice({
       })
       .addCase(connectionThunk.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.user = action.payload;
+        state.token = action.payload;
       })
       .addCase(connectionThunk.rejected, (state, action) => {
         state.status = 'failed';
