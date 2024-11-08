@@ -1,6 +1,10 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { selectUser } from '../loginPage/loginSlice';
 
 const UserProfilePage = () => {
+  const user = useSelector(selectUser);
+  console.log(user);
   return (
     <div>
       <nav className="main-nav">
@@ -28,7 +32,7 @@ const UserProfilePage = () => {
           <h1>
             Welcome back
             <br />
-            Tony Jarvis!
+            <p>{`${user.firstName} ${user.lastName}`}</p>
           </h1>
           <button className="edit-button">Edit Name</button>
         </div>
