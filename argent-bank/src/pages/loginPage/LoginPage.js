@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { connectionThunk } from './loginSlice';
+import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
   const { status } = useSelector((state) => state.login);
   const dispatch = useDispatch();
   const [userName, setUserName] = useState('');
   const [passWord, setPassWord] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -21,10 +23,11 @@ const LoginPage = () => {
 
   useEffect(() => {
     if (status === 'succeeded') {
+      navigate('/user');
       setPassWord('');
       setUserName('');
     }
-  }, [status]);
+  }, [status, navigate]);
 
   const errorMessage = 'Mot de passe éroné';
   const emptyInput = 'Le champs est vide';
