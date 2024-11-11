@@ -4,7 +4,7 @@ import { selectUser } from '../loginPage/loginSlice';
 
 const UserProfilePage = () => {
   const user = useSelector(selectUser);
-  console.log(user);
+  console.log(' client:', user);
   return (
     <div>
       <nav className="main-nav">
@@ -32,7 +32,7 @@ const UserProfilePage = () => {
           <h1>
             Welcome back
             <br />
-            <p>{`${user.firstName} ${user.lastName}`}</p>
+            <p>{`${user.body.firstName} ${user.body.lastName}`}</p>
           </h1>
           <button className="edit-button">Edit Name</button>
         </div>
