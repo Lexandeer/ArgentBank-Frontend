@@ -5,7 +5,7 @@ import { connectionThunk } from './loginSlice';
 import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
-  const { status } = useSelector((state) => state.login);
+  const { connectionStatus } = useSelector((state) => state.login);
   const dispatch = useDispatch();
   const [userName, setUserName] = useState('');
   const [passWord, setPassWord] = useState('');
@@ -17,17 +17,17 @@ const LoginPage = () => {
       email: userName,
       password: passWord,
     };
-    console.log(loginInput); // Supprimer après les test
     dispatch(connectionThunk(loginInput));
   };
 
   useEffect(() => {
-    if (status === 'succeeded') {
+    if (connectionStatus === 'succeeded') {
       setPassWord('');
       setUserName('');
       navigate('/user');
     }
-  }, [status, navigate]);
+    console.log('connectionStatus :', connectionStatus);
+  }, [connectionStatus, navigate]);
 
   const errorMessage = 'Mot de passe éroné';
   const emptyInput = 'Le champs est vide';
@@ -64,7 +64,11 @@ const LoginPage = () => {
                 value={userName}
                 onChange={(e) => setUserName(e.target.value)}
               />
-              {(status === 'failed') & !userName ? <p>{emptyInput} </p> : ''}
+              {(connectionStatus === 'failed') & !userName ? (
+                <p>{emptyInput} </p>
+              ) : (
+                ''
+              )}
             </div>
             <div className="input-wrapper">
               <label htmlFor="password">Password</label>
@@ -74,12 +78,16 @@ const LoginPage = () => {
                 value={passWord}
                 onChange={(e) => setPassWord(e.target.value)}
               />
-              {(status === 'failed') & (passWord !== '') ? (
+              {(connectionStatus === 'failed') & (passWord !== '') ? (
                 <p>{errorMessage}</p>
               ) : (
                 ''
               )}
-              {(status === 'failed') & !passWord ? <p>{emptyInput}</p> : ''}
+              {(connectionStatus === 'failed') & !passWord ? (
+                <p>{emptyInput}</p>
+              ) : (
+                ''
+              )}
             </div>
             <div className="input-remember">
               <input type="checkbox" id="remember-me" />
@@ -89,7 +97,7 @@ const LoginPage = () => {
               Sign In
             </button>
           </form>
-          {status === 'loading' && <span className="loader"></span>}
+          {connectionStatus === 'loading' && <span className="loader"></span>}
         </section>
       </main>
       <footer className="footer">
