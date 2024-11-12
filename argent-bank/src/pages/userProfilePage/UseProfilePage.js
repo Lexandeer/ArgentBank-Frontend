@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Disconnect, selectUser } from '../loginPage/loginSlice';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const UserProfilePage = () => {
   const user = useSelector(selectUser);
@@ -11,23 +12,23 @@ const UserProfilePage = () => {
   return (
     <div>
       <nav className="main-nav">
-        <a className="main-nav-logo" href="./index.html">
+        <Link to="/" className="main-nav-logo">
           <img
             className="main-nav-logo-image"
             src="./img/argentBankLogo.jpeg"
             alt="Argent Bank Logo"
           />
           <h1 className="sr-only">Argent Bank</h1>
-        </a>
-        <div>
-          <a className="main-nav-item" href="./user.html">
+        </Link>
+        <div className="flex-row">
+          <div className="main-nav-item">
             <i className="fa fa-user-circle"></i>
-            {user.body ? user.body.firstName : ''}
-          </a>
+            <p>{user.body ? user.body.firstName : ''}</p>
+          </div>
           <button
             className="main-nav-item nav-button-userProfile"
             onClick={() => {
-              dispatch(Disconnect);
+              dispatch(Disconnect());
               navigate('/login');
             }}
           >
