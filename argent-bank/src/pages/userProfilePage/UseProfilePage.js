@@ -1,14 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Disconnect, selectUser } from '../loginPage/loginSlice';
+import {
+  disconnect,
+  disconnectThunk,
+  selectUser,
+} from '../loginPage/loginSlice';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 const UserProfilePage = () => {
   const user = useSelector(selectUser);
-  console.log(' client:', user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { disconnectStatus } = useSelector((state) => state.login);
+
+  useEffect(() => {
+    if (disconnectStatus === 'succeeded') {
+      navigate('/login');
+    }
+    console.log('disconnectStatus :', disconnectStatus);
+  }, [disconnectStatus, navigate]);
+
   return (
     <div>
       <nav className="main-nav">
@@ -28,8 +40,7 @@ const UserProfilePage = () => {
           <button
             className="main-nav-item nav-button-userProfile"
             onClick={() => {
-              dispatch(Disconnect());
-              navigate('/login');
+              dispatch(disconnectThunk(disconnect));
             }}
           >
             <i className="fa fa-sign-out"></i>
@@ -46,7 +57,9 @@ const UserProfilePage = () => {
               {' '}
               {/* Ici l'opération ternaire nous permet d'attendre la récupèration de 
                     user.body et ainsi éviter les erreurs de rendu. */}
-              {user.body ? `${user.body.firstName} ${user.body.lastName}` : ''}
+              {user.body
+                ? `${user?.body.firstName} ${user?.body.lastName}`
+                : ''}
             </p>
           </h1>
           <button className="edit-button">Edit Name</button>
