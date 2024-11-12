@@ -56,6 +56,10 @@ body {
   margin-right: 0.5rem;
 }
 
+.main-nav-item p {
+  font-weight: bold;
+  text-decoration: none;
+}
 .main-nav-item:hover {
   text-decoration: underline;
 }
@@ -301,6 +305,11 @@ body {
   border-color: #00bc77;
   background-color: #00bc77;
   color: #fff;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
 }
 
 @media (min-width: 720px) {
