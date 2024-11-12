@@ -20,29 +20,39 @@ export const connectionThunk = createAsyncThunk(
       // connectionThunk renvoie au reducer la réponse de l'API(le token) sous forme d'actionPayload.
       return data; // resolve(),
     } else {
-      console.log('action:', action);
       const errorData = await response.json();
       throw new Error(errorData.message || 'erreur de connexion '); // reject()
     }
   },
 );
 
+// Mon thunk disconnectThunk sert à encapsuler mon action Disconnect et s'assurer
+// qu'elle se finalise avant de navigate('/login)
+export const disconnectThunk = createAsyncThunk(
+  'logout/disconnectThunk',
+  async (action, { dispatch }) => {
+    dispatch(action()); // l'action passer est disconnect
+    return true; //Indique au reducer que l'action est fulfilled
+  },
+);
+
 export const loginSlice = createSlice({
   name: 'login',
   initialState: {
-    status: 'idle', //idle, loading, succeeded, failed
+    connectionStatus: 'idle', //idle, loading, succeeded, failed
+    disconnectStatus: 'idle',
     error: null,
     token: null,
     user: {},
   },
   // Pour les actions Synchrones
   reducers: {
-    Disconnect: (currentState) => {
+    disconnect: (currentState) => {
       // On remet à zéro tout les states
       currentState.token = null; // réinitialise le token  à la déconnexion
-      currentState.status = 'idle';
+      currentState.connectionStatus = 'idle';
       currentState.error = null;
-      currentState.user = null;
+      currentState.user = {};
     },
     setUser: (currentState, action) => {
       currentState.user = action.payload;
@@ -55,18 +65,22 @@ export const loginSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(connectionThunk.pending, (state) => {
-        state.status = 'loading';
+        state.connectionStatus = 'loading';
       })
       .addCase(connectionThunk.fulfilled, (state, action) => {
-        state.status = 'succeeded';
+        state.connectionStatus = 'succeeded';
+        state.disconnectStatus = 'idle';
         state.token = action.payload;
       })
       .addCase(connectionThunk.rejected, (state, action) => {
-        state.status = 'failed';
+        state.connectionStatus = 'failed';
         state.error = action.error.message;
+      })
+      .addCase(disconnectThunk.fulfilled, (state) => {
+        state.disconnectStatus = 'succeeded';
       });
   },
 });
 
-export const { setUser, setError, Disconnect } = loginSlice.actions;
+export const { setUser, setError, disconnect } = loginSlice.actions;
 export const selectUser = (state) => state.login.user;
