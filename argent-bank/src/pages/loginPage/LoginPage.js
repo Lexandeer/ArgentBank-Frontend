@@ -23,9 +23,9 @@ const LoginPage = () => {
 
   useEffect(() => {
     if (status === 'succeeded') {
-      navigate('/user');
       setPassWord('');
       setUserName('');
+      navigate('/user');
     }
   }, [status, navigate]);
 
@@ -64,7 +64,7 @@ const LoginPage = () => {
                 value={userName}
                 onChange={(e) => setUserName(e.target.value)}
               />
-              {!userName && <p>{emptyInput}</p>}
+              {(status === 'failed') & !userName ? <p>{emptyInput} </p> : ''}
             </div>
             <div className="input-wrapper">
               <label htmlFor="password">Password</label>
@@ -74,8 +74,12 @@ const LoginPage = () => {
                 value={passWord}
                 onChange={(e) => setPassWord(e.target.value)}
               />
-              {status === 'failed' && <p>{errorMessage}</p>}
-              {!passWord && <p>{emptyInput}</p>}
+              {(status === 'failed') & (passWord !== '') ? (
+                <p>{errorMessage}</p>
+              ) : (
+                ''
+              )}
+              {(status === 'failed') & !passWord ? <p>{emptyInput}</p> : ''}
             </div>
             <div className="input-remember">
               <input type="checkbox" id="remember-me" />
