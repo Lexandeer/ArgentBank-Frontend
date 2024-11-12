@@ -20,9 +20,13 @@ export const getUserListThunk = createAsyncThunk(
       dispatch(setUser(data));
     } else {
       const errorData = await response.json();
-      console.log('token récupérer dans la requête GET:', action);
       dispatch(setError(errorData));
       throw new Error(errorData.message || 'erreur de récupèration');
     }
   },
+);
+
+export const setUserName = createAsyncThunk(
+  'userName/setUserName',
+  async (action, { dispatch }) => {},
 );
