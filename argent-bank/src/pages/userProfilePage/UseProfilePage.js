@@ -2,45 +2,46 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   disconnect,
+  resetSetUserNameStatus,
   disconnectThunk,
   selectUser,
   selectToken,
-  selectUserName,
+  selectSetUserNameStatus,
 } from '../loginPage/loginSlice';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { getUserInfoThunk, setUserNameThunk } from '../../api/api';
 
 const UserProfilePage = () => {
   const user = useSelector(selectUser);
   const token = useSelector(selectToken);
-  const getUserName = useSelector(selectUserName);
+
+  const setUserNameStatus = useSelector(selectSetUserNameStatus);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { disconnectStatus } = useSelector((state) => state.login);
 
   const [isVisible, setIsVisible] = useState(false);
   const [userName, setUserName] = useState('');
-  const [error, setError] = useState('');
+
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    dispatch(setUserNameThunk({ token, userName }));
+  };
 
   useEffect(() => {
-    if (!userName) {
-      setError('Le champs est vide');
-    } else {
-      setError('');
+    if (setUserNameStatus === 'succeeded') {
+      setUserName('');
+      dispatch(getUserInfoThunk(token));
     }
-  }, []);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(setUserName({ token, userName }));
-  };
+    dispatch(resetSetUserNameStatus());
+  }, [setUserNameStatus, dispatch, token]);
 
   useEffect(() => {
     if (disconnectStatus === 'succeeded') {
       navigate('/login');
     }
   }, [disconnectStatus, navigate]);
-
   return (
     <div>
       <nav className="main-nav">
@@ -55,7 +56,7 @@ const UserProfilePage = () => {
         <div className="flex-row">
           <div className="main-nav-item">
             <i className="fa fa-user-circle"></i>
-            <p>{getUserName ? getUserName : ''}</p>
+            <p>{user.body ? user.body?.userName : ''}</p>
           </div>
           <button
             className="main-nav-item nav-button-userProfile"
@@ -90,7 +91,7 @@ const UserProfilePage = () => {
           <div
             className={isVisible ? 'form-wrapper-flex' : 'form-wrapper-none'}
           >
-            <form className="user-form">
+            <form className="user-form" onSubmit={handleSubmit}>
               <legend className="user-form-title">Edit user info</legend>
               <div className="user-form-inputs">
                 <div className="user-form-input">
@@ -99,9 +100,10 @@ const UserProfilePage = () => {
                     type="text"
                     id="userName"
                     name="userName"
+                    value={userName}
                     onChange={(e) => setUserName(e.target.value)}
+                    required
                   ></input>
-                  <p>{error}</p>
                 </div>
                 <div className="user-form-input">
                   <label htmlFor="firstName">First name:</label>
@@ -127,9 +129,7 @@ const UserProfilePage = () => {
                 </div>
               </div>
               <div className="user-form-buttons">
-                <button type="submit" onSubmit={() => handleSubmit()}>
-                  Save
-                </button>
+                <button type="submit">Save</button>
                 <button
                   type="button"
                   onClick={() => {
