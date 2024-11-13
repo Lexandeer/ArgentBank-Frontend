@@ -44,6 +44,7 @@ export const loginSlice = createSlice({
     error: null,
     token: null,
     user: {},
+    userName: '',
   },
   // Pour les actions Synchrones
   reducers: {
@@ -56,6 +57,9 @@ export const loginSlice = createSlice({
     },
     setUser: (currentState, action) => {
       currentState.user = action.payload;
+    },
+    setUserName: (currentState, action) => {
+      currentState.userName = action.payload;
     },
     setError: (currentState, action) => {
       currentState.error = action.payload;
@@ -84,3 +88,5 @@ export const loginSlice = createSlice({
 
 export const { setUser, setError, disconnect } = loginSlice.actions;
 export const selectUser = (state) => state.login.user;
+export const selectToken = (state) => state.login.token;
+export const selectUserName = (state) => state.login.userName;
