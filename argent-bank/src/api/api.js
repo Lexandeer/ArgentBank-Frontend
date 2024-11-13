@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { setUser, setError } from '../pages/loginPage/loginSlice';
 
-export const getUserListThunk = createAsyncThunk(
+export const getUserInfoThunk = createAsyncThunk(
   'user/getUserListThunk',
   async (action, { dispatch }) => {
     const response = await fetch('http://localhost:3001/api/v1/user/profile', {
@@ -26,7 +26,7 @@ export const getUserListThunk = createAsyncThunk(
   },
 );
 
-export const setUserName = createAsyncThunk(
+export const setUserNameThunk = createAsyncThunk(
   'userName/setUserName',
   async ({ token, userName }, { dispatch }) => {
     const response = await fetch('http://localhost:3001/api/v1/user/profile', {
@@ -35,12 +35,12 @@ export const setUserName = createAsyncThunk(
         'Content-type': 'application/json',
         authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(userName),
+      body: JSON.stringify({ userName }),
     });
 
     if (response.ok) {
       const data = await response.json();
-      dispatch(setUserName(data));
+      return data;
     } else {
       const errorData = await response.json();
       dispatch(setError(errorData));
