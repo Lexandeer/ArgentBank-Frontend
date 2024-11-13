@@ -28,5 +28,25 @@ export const getUserListThunk = createAsyncThunk(
 
 export const setUserName = createAsyncThunk(
   'userName/setUserName',
-  async (action, { dispatch }) => {},
+  async ({ token, userName }, { dispatch }) => {
+    const response = await fetch('http://localhost:3001/api/v1/user/profile', {
+      method: 'PUT',
+      headers: {
+        'Content-type': 'application/json',
+        authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(userName),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      dispatch(setUserName(data));
+    } else {
+      const errorData = await response.json();
+      dispatch(setError(errorData));
+      throw new Error(
+        errorData.message || 'erreur pour la modification du pseudo',
+      );
+    }
+  },
 );
