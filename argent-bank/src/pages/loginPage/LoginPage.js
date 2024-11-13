@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { connectionThunk } from './loginSlice';
+import { connectionThunk, selectConnectionStatus } from './loginSlice';
 import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
-  const { connectionStatus } = useSelector((state) => state.login);
+  const connectionStatus = useSelector(selectConnectionStatus);
   const dispatch = useDispatch();
   const [userName, setUserName] = useState('');
   const [passWord, setPassWord] = useState('');
@@ -26,7 +26,6 @@ const LoginPage = () => {
       setUserName('');
       navigate('/user');
     }
-    console.log('connectionStatus :', connectionStatus);
   }, [connectionStatus, navigate]);
 
   const errorMessage = 'Mot de passe éroné';
