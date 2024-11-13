@@ -290,6 +290,71 @@ body {
   padding: 10px;
   cursor: pointer;
 }
+.form-wrapper-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 30px;
+}
+.form-wrapper-none {
+  display: none;
+}
+.user-form {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.user-form-title {
+  font-size: 30px;
+}
+.user-form-inputs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  height: 160px;
+  margin: 20px;
+}
+.user-form-input {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 40%;
+  height: 20%;
+}
+.user-form-input label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30%;
+}
+.user-form-input input {
+  padding-left: 10px;
+  font-size: 16px;
+  width: 50%;
+  border-radius: 5px;
+}
+
+.input-readOnly {
+  background-color: #d3d3d3;
+}
+.user-form-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.user-form-buttons button {
+  padding: 15px 50px 15px 50px;
+  color: white;
+  background-color: green;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
 
 .header {
   color: #fff;
