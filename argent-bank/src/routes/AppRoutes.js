@@ -4,7 +4,8 @@ import HomePage from '../pages/homePage/HomePage';
 import LoginPage from '../pages/loginPage/LoginPage';
 import UserProfilePage from '../pages/userProfilePage/UseProfilePage';
 import '../app/App.css';
-
+import { Footer } from '../components/Footer';
+import { NotFound } from '../pages/notfound/NotFound';
 const AppRoutes = () => {
   return (
     <Router>
@@ -12,7 +13,9 @@ const AppRoutes = () => {
         <Route path="/" element={<HomePage />}></Route>
         <Route path="/login" element={<LoginPage />}></Route>
         <Route path="/user" element={<UserProfilePage />}></Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
+      <Footer />
     </Router>
   );
 };
