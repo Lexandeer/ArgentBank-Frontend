@@ -52,21 +52,30 @@ body {
 }
 
 .main-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   text-decoration: none;
   margin-right: 0.5rem;
 }
 
-.main-nav-item p {
+.main-nav-item-text {
   font-weight: bold;
   text-decoration: none;
 }
-.main-nav-item:hover {
+.main-nav-item-text:hover {
   text-decoration: underline;
 }
 
 .main-nav-logo {
   display: flex;
   align-items: center;
+}
+.fa-user-circle {
+  width: fit-content;
+  height: fit-content;
+  font-size: 30px;
+  text-decoration: none;
 }
 
 .main-nav-logo-image {

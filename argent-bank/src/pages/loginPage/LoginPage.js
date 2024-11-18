@@ -46,7 +46,7 @@ const LoginPage = () => {
         <div>
           <Link to="/login" className="main-nav-item">
             <i className="fa fa-user-circle"></i>
-            Sign In
+            <p className="main-nav-item-text">Sign In</p>
           </Link>
         </div>
       </nav>

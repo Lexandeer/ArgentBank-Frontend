@@ -27,6 +27,7 @@ const UserProfilePage = () => {
   const handleSubmit = (evt) => {
     evt.preventDefault();
     dispatch(setUserNameThunk({ token, userName }));
+    setIsVisible(false);
   };
 
   useEffect(() => {
@@ -56,7 +57,9 @@ const UserProfilePage = () => {
         <div className="flex-row">
           <div className="main-nav-item">
             <i className="fa fa-user-circle"></i>
-            <p>{user.body ? user.body?.userName : ''}</p>
+            <p className="main-nav-item-text">
+              {user.body ? user.body?.userName : ''}
+            </p>
           </div>
           <button
             className="main-nav-item nav-button-userProfile"
@@ -65,7 +68,7 @@ const UserProfilePage = () => {
             }}
           >
             <i className="fa fa-sign-out"></i>
-            Sign Out
+            <p className="main-nav-item-text">Sign Out</p>
           </button>
         </div>
       </nav>
