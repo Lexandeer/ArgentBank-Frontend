@@ -1,31 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { getUserInfoThunk, setUserNameThunk } from '../../api/api';
-
-export const connectionThunk = createAsyncThunk(
-  'login/connectionThunk',
-  async (action, { dispatch }) => {
-    const response = await fetch('http://localhost:3001/api/v1/user/login', {
-      method: 'POST',
-      headers: {
-        //On specifie que les données sont au format json
-        'Content-type': 'application/json',
-      },
-      body: JSON.stringify(action),
-    });
-
-    if (response.ok) {
-      const data = await response.json();
-      console.log('token envoyé par la requête POST:', data);
-      dispatch(getUserInfoThunk(data.body.token)); // Je précise le contenu de l'action
-      // connectionThunk renvoie au reducer la réponse de l'API(le token) sous forme d'actionPayload.
-      return data; // resolve(),
-    } else {
-      const errorData = await response.json();
-      dispatch(setError(errorData));
-      throw new Error(errorData.message || 'erreur de connexion '); // reject()
-    }
-  },
-);
+import { setUserNameThunk, connectionThunk } from '../../api/api';
 
 // Mon thunk disconnectThunk sert à encapsuler mon action Disconnect et s'assurer
 // qu'elle se finalise avant de navigate('/login)
