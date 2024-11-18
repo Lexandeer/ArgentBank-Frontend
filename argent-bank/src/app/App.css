@@ -378,6 +378,28 @@ body {
   flex-direction: row;
 }
 
+.container-error {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: orangered;
+  gap: 150px;
+  margin: 150px 0 150px 0;
+  .container-error__error {
+    font-size: 240px;
+    font-weight: 700;
+  }
+  .container-error__message {
+    font-size: 32px;
+  }
+  .container-error__link {
+    font-size: 24px;
+    color: black;
+    font-weight: 500;
+  }
+}
+
 @media (min-width: 720px) {
   .account {
     flex-direction: row;
