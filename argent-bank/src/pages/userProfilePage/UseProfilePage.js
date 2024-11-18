@@ -80,14 +80,16 @@ const UserProfilePage = () => {
               {user.body ? `${user.body.firstName} ${user.body.lastName}` : ''}
             </p>
           </h1>
-          <button
-            className="edit-button"
-            onClick={() => {
-              setIsVisible(true);
-            }}
-          >
-            Edit Name
-          </button>
+          {isVisible === false && (
+            <button
+              className="edit-button"
+              onClick={() => {
+                setIsVisible(true);
+              }}
+            >
+              Edit Name
+            </button>
+          )}
           <div
             className={isVisible ? 'form-wrapper-flex' : 'form-wrapper-none'}
           >
