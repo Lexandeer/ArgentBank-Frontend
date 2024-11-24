@@ -15,7 +15,7 @@ const AppRoutes = () => {
         <Route path="/" element={<HomePage />}></Route>
         <Route path="/login" element={<LoginPage />}></Route>
         <Route
-          path="/user"
+          path="/user/profile"
           element={
             //On protège la route UserProfilePage par une vérification de la présence du token
             <ProtectedRoute>

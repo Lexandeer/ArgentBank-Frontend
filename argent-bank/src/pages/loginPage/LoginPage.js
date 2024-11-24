@@ -25,7 +25,7 @@ const LoginPage = () => {
     if (connectionStatus === 'succeeded') {
       setPassWord('');
       setUserName('');
-      navigate('/user');
+      navigate('/user/profile');
     }
   }, [connectionStatus, navigate]);
 
