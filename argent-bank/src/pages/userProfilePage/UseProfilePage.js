@@ -49,7 +49,7 @@ const UserProfilePage = () => {
         <Link to="/" className="main-nav-logo">
           <img
             className="main-nav-logo-image"
-            src="./img/argentBankLogo.jpeg"
+            src="../img/argentBankLogo.jpeg"
             alt="Argent Bank Logo"
           />
           <h1 className="sr-only">Argent Bank</h1>
